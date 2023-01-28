@@ -53,6 +53,7 @@ $("#register-submit").bind('click', function(){
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    window.location.replace("index.html");
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -77,6 +78,7 @@ $("#login-submit").bind('click', function(){
       setCookie("rememberUser", true, 7);
       console.log(getCookie("rememberUser"));
     }
+    window.location.replace("index.html");
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -101,9 +103,11 @@ $("#sign-out").bind('click', function(){
 
 });
 
+let onSite = false;
+$('a').on('click', function() { onSite = true; });
 // if user did not select remember me the user will be logged out
 $(window).on("beforeunload", function(){
-  if(getCookie("rememberUser") != "true"){
+  if(!onSite && getCookie("rememberUser") != "true"){
     signOut(auth).then(() => {
       return;
     }).catch((error) => {
