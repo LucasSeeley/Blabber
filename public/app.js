@@ -1,8 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js';
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
 const firebaseConfig = {
-  
 };
 
 const app = initializeApp(firebaseConfig);
@@ -11,23 +10,16 @@ const auth = getAuth(app);
 
 console.log(app);
 
-$(document).ready(function(){
-
-
-    if(getCookie("user") != null){
-        signInUser(user.email, user.password);
-    }
-
-    
-});
-
+// this is what signs the user back in on page load
 onAuthStateChanged(auth, (user) => {
     if (user) {
-      
       const uid = user.uid;
-      $("#sign-in-nav").hide();
+      $("#sign-in-nav").hide().css("visibility", "hidden");
+      $("#profile-nav").show().css("visibility", "visible");
+      console.log("auth state");
     } else {
-      $("#sign-in-nav").show();
+      $("#profile-nav").hide().css("visibility", "hidden");
+      $("#sign-in-nav").show().css("visibility", "visible");
     }
   });
 
@@ -55,19 +47,21 @@ function getCookie(cname){
 }
 
 
-function registerUser(email, password){
+$("#register-submit").bind('click', function(){
 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    setCookie("user", user, 3);
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+
+    console.error(errorCode);
+    console.error(errorMessage);
   });
-}
+});
 
 $("#login-submit").bind('click', function(){
   const email = $('#email').val();
@@ -77,13 +71,25 @@ $("#login-submit").bind('click', function(){
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    $('#sign-in-nav').hide().css("visibility", "hidden");
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
 
-    console.log(errorCode);
-    console.log(errorMessage);
+    console.error(errorCode);
+    console.error(errorMessage);
   });
+});
+
+$("#sign-out").bind('click', function(){
+  signOut(auth).then(() => {
+    window.location.replace("index.html");
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    console.error(errorCode);
+    console.error(errorMessage);
+  });
+
 });

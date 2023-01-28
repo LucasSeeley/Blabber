@@ -11,3 +11,16 @@ body{
     width: 80%;
     margin: 5% 10% auto 10%;
 }
+
+#register{
+    margin-top: 4%;
+}
+
+/* prevents showing both login+my_profile when page initially loads */
+#sign-in-nav{
+    visibility: hidden;
+}
+
+#profile-nav{
+    visibility: hidden;
+}
