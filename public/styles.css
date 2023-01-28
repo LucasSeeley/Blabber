@@ -7,6 +7,7 @@ body{
     text-align: center;
 }
 
-.row{
-    padding-left: 5%;
+.small-form-entry{
+    width: 80%;
+    margin: 5% 10% auto 10%;
 }

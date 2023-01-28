@@ -1,24 +1,24 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
-var firebase = require('firebase');
-var firebaseui = require('firebaseui');
+const firebaseConfig = {
+  //
+};
+
+const app = initializeApp(firebaseConfig);
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+
+console.log(app);
 
 $(document).ready(function(){
 
-    const firebaseConfig = {
-        // ...   
-    };
-
-    const app = initializeApp(firebaseConfig);
-    // Initialize Firebase Authentication and get a reference to the service
-    const auth = getAuth(app);
-
-    console.log(app);
 
     if(getCookie("user") != null){
         signInUser(user.email, user.password);
     }
+
+    
 });
 
 onAuthStateChanged(auth, (user) => {
@@ -69,11 +69,13 @@ function registerUser(email, password){
   });
 }
 
-function signInUser(email, password){
+function signInUser(){
+
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    
   })
   .catch((error) => {
     const errorCode = error.code;
