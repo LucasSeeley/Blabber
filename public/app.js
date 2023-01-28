@@ -2,7 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.16.0/firebas
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
 
 const firebaseConfig = {
-  //
+  
 };
 
 const app = initializeApp(firebaseConfig);
@@ -69,16 +69,21 @@ function registerUser(email, password){
   });
 }
 
-function signInUser(){
+$("#login-submit").bind('click', function(){
+  const email = $('#email').val();
+  const password = $('#password').val();
 
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    
+    $('#sign-in-nav').hide().css("visibility", "hidden");
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+
+    console.log(errorCode);
+    console.log(errorMessage);
   });
-}
+});
