@@ -24,3 +24,14 @@ body{
 #profile-nav{
     visibility: hidden;
 }
+
+textarea{
+    max-width: 30%;
+    resize: none;
+    margin: auto;
+}
+
+#main-content{
+    margin: 3% auto;
+    text-align: center;
+}

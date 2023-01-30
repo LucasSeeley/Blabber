@@ -17,7 +17,7 @@ onAuthStateChanged(auth, (user) => {
       const uid = user.uid;
       $("#sign-in-nav").hide().css("visibility", "hidden");
       $("#profile-nav").show().css("visibility", "visible");
-      console.log("auth state");
+      setCookie("user-uid", uid, 1);
     } else {
       $("#profile-nav").hide().css("visibility", "hidden");
       $("#sign-in-nav").show().css("visibility", "visible");
@@ -28,7 +28,7 @@ function setCookie(name, value, days){
     const date = new Date();
     date.setTime(date.getTime() + (days*24*60*60*1000));
     let expiration = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=${value};${expiration};path=/`;
+    document.cookie = `${name}=${value};${expiration};SameSite=secure;path=/`;
 }
 
 function getCookie(cname){
@@ -117,5 +117,15 @@ $(window).on("beforeunload", function(){
       console.error(errorCode);
       console.error(errorMessage);
     });
+  }else{
+    onSite = false;
+  }
+});
+
+$("#post-blab").on("click", function(){
+  let post = $("#blab-input").val();
+
+  if(getCookie('user-uid') != null && post.length < 50){
+    $("#posts").prepend(post);
   }
 });
