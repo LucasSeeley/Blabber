@@ -121,11 +121,3 @@ $(window).on("beforeunload", function(){
     onSite = false;
   }
 });
-
-$("#post-blab").on("click", function(){
-  let post = $("#blab-input").val();
-
-  if(getCookie('user-uid') != null && post.length < 50){
-    $("#posts").prepend(post);
-  }
-});

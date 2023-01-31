@@ -26,12 +26,25 @@ body{
 }
 
 textarea{
-    max-width: 30%;
+    max-width: 100%;
     resize: none;
-    margin: auto;
 }
 
 #main-content{
-    margin: 3% auto;
-    text-align: center;
+    margin: 2% 3%;
+    width: 25%;
+}
+
+.card{
+    margin: 2% 0;
+}
+
+.blab-form-item{
+    margin-bottom: 1%;
+}
+
+#create-post{
+    padding: 5%;
+    background-color: white;
+    border: solid 2px black;
 }
